@@ -29,7 +29,9 @@ module.exports = merge(baseWebpackConfig, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': 'development'
+      'process.env': {
+        NODE_ENV: JSON.stringify('development')
+      }
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
@@ -47,3 +49,4 @@ module.exports = merge(baseWebpackConfig, {
     })
   ]
 })
+

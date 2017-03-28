@@ -21,7 +21,7 @@ module.exports = {
     filename: 'app.js'
   },
   resolve: {
-    extensions: ['', '.js', '.vue'],
+    extensions: ['', '.js', '.vue', '.jsx'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
       'src': path.resolve(__dirname, '../src'),
@@ -37,6 +37,11 @@ module.exports = {
   module: {
     preLoaders: [
       {
+        test: /\.jsx?$/,
+        exclude: [/node_modules/, /vendor/],
+        loader: 'eslint'
+      },
+      {
         test: /\.vue$/,
         loader: 'eslint',
         include: projectRoot,
@@ -51,6 +56,14 @@ module.exports = {
     ],
     loaders: [
       {
+        test: /.jsx?$/,
+        loader: 'babel',
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'react']
+        }
+      },
+      {
         test: /\.vue$/,
         loader: 'vue'
       },
@@ -58,7 +71,10 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel',
         include: projectRoot,
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        query: {
+          presets: ['es2015', 'react']
+        }
       },
       {
         test: /\.json$/,
@@ -83,6 +99,10 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.scss$/,
+        loader: 'sass'
       }
     ]
   },
